@@ -1,0 +1,3 @@
+{
+  "mongoURI": "mongodb+srv://gfdev:hungryhippos@cluster0.xpk3n.mongodb.net/socialmediaDatabase?retryWrites=true&w=majority"
+}
