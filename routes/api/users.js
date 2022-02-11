@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator/check');
+const bcrypt = require('bcryptjs');
+const gravatar = require('gravatar');
+const { check, validationResult } = require('express-validator');
+
+const User = require('../../models/User');
 
 //@route  POST api/users
 //@desc   Register user
@@ -14,12 +18,33 @@ router.post(
       min: 6,
     }),
   ],
-  (req, res) => {
+  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    res.send('User route');
+    // See if the user exists
+    const { name, email, password } = req.body;
+    try {
+      //if user exists send back error
+      let user = await User.findOne({ email });
+      if (user) {
+        res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+      }
+      //get users gravatar is email has one.
+      const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' });
+      user = new User({ name, email, avatar, password });
+      //encrypt password using bcrypt
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+      await user.save();
+      //return the jsonwebtoken
+
+      res.send('User registered');
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: error.message });
+    }
   }
 );
 
