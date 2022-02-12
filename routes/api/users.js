@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
@@ -19,6 +18,7 @@ router.post(
     check('password', 'Please enter a password with 6 or more characters').isLength({
       min: 6,
     }),
+    check('avatar', 'Please provide a image url').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -26,13 +26,12 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     // See if the user exists
-    const { name, email, password } = req.body;
+    const { name, email, password, avatar } = req.body;
     try {
       //if user exists send back error
       let user = await User.findOne({ email });
       if (user) res.status(400).json({ errors: [{ msg: 'User already exists' }] });
       //get users gravatar if email has one.
-      const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' });
       user = new User({ name, email, avatar, password });
       //encrypt password using bcrypt
       const salt = await bcrypt.genSalt(10);
