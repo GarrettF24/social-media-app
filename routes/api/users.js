@@ -30,9 +30,7 @@ router.post(
     try {
       //if user exists send back error
       let user = await User.findOne({ email });
-      if (user) {
-        res.status(400).json({ errors: [{ msg: 'User already exists' }] });
-      }
+      if (user) res.status(400).json({ errors: [{ msg: 'User already exists' }] });
       //get users gravatar if email has one.
       const avatar = gravatar.url(email, { s: '200', r: 'pg', d: 'mm' });
       user = new User({ name, email, avatar, password });
