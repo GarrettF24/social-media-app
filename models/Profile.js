@@ -20,7 +20,7 @@ const ProfileSchema = new mongoose.Schema(
         },
         from: { type: Date },
         to: { type: Date },
-        current: { type: Boolean },
+        current: { type: Boolean, default: false },
       },
     ],
     social: {
