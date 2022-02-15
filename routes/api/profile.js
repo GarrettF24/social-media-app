@@ -146,10 +146,6 @@ router.get('/user/:user_id', async (req, res) => {
   }
 });
 
-//@route  PUT api/profile/education
-//@desc   Add profile education
-//@access Private
-
 //@route  DELETE api/profile/
 //@desc   Delete profile, user & post
 //@access Private
