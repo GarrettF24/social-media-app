@@ -165,26 +165,3 @@ router.delete('/', auth, async (req, res) => {
 });
 
 module.exports = router;
-
-//Build profile object
-// const profileFields = {};
-// profileFields.user = req.user.id;
-// const infoFields = ['hobbies', 'bio', 'job', 'location'];
-// const socialFields = [
-//   'facebook',
-//   'instagram',
-//   'twitter',
-//   'snapchat',
-//   'linkedin',
-//   'youtube',
-// ];
-// infoFields.forEach((field) => {
-//   if (req.body[field]) profileFields[field] = req.body[field];
-//   if (hobbies)
-//     profileFields.hobbies = hobbies.split(',').map((hobby) => hobby.trim());
-// });
-
-// profileFields.social = {};
-// socialFields.forEach((field) => {
-//   if (req.body[field]) profileFields[field] = req.body[field];
-// });
