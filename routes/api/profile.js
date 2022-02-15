@@ -42,11 +42,11 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const profileFields = {};
-    profileFields.user = req.user.id;
-    profileFields.social = {};
+    const profFields = {};
+    profFields.user = req.user.id;
+    profFields.social = {};
 
-    const whiteList = [
+    const list = [
       'hobbies',
       'bio',
       'job',
@@ -61,9 +61,9 @@ router.post(
     const inputData = Object.keys(req.body);
 
     for (key of inputData) {
-      if (whiteList.includes(key)) {
+      if (list.includes(key)) {
         if (key === 'hobbies' && typeof req.body.hobbies !== 'undefined') {
-          profileFields[key] = req.body.hobbies.split(',');
+          profFields[key] = req.body.hobbies.split(',');
         } else if (
           [
             'facebook',
@@ -75,9 +75,9 @@ router.post(
           ].includes(key) &&
           req.body[key]
         ) {
-          profileFields.social[key] = req.body[key];
+          profFields.social[key] = req.body[key];
         } else if (req.body[key]) {
-          profileFields[key] = req.body[key];
+          profFields[key] = req.body[key];
         }
       }
     }
@@ -88,7 +88,7 @@ router.post(
         //Update
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
-          { $set: profileFields },
+          { $set: profFields },
           { new: true }
         );
 
