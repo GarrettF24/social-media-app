@@ -13,9 +13,11 @@ const ProfileSchema = new mongoose.Schema(
     education: [
       {
         school: { type: String },
-        degree: { type: String },
-        certification: { type: String },
-        license: { type: String },
+        markofcompletion: {
+          type: String,
+          enum: ['Degree', 'Diploma', 'License', 'Certificate'],
+          default: 'Degree',
+        },
         from: { type: Date },
         to: { type: Date },
       },
