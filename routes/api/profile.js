@@ -146,6 +146,60 @@ router.get('/user/:user_id', async (req, res) => {
   }
 });
 
+//@route  PUT apli/profile/education
+//desc    Add profile education
+//@access Private
+
+router.put(
+  '/education',
+  auth,
+  [
+    check('school', 'School is required').not().isEmpty(),
+    check('markofcompletion', 'Please select Degree, Diploma, License or Certificate')
+      .not()
+      .isEmpty(),
+    check('from', 'Select when started').not().isEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    const { school, markofcompletion, from, to, current } = req.body;
+    const newEdu = { school, markofcompletion, from, to, current };
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+      profile.education.unshift(newEdu);
+      await profile.save();
+      res.json(profile);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: error.message });
+    }
+  }
+);
+
+//@route   DELETE api/profile/experience/:edu_id
+//@desc    Delete education from profile
+//@access  Private
+router.delete('/education/:edu_id', auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+    const removeIndex = profile.education
+      .map((item) => item.id)
+      .indexOf(req.params.edu_id);
+    // if (removeIndex === -1) {
+    //   return res.status(400).json({
+    //     msg: 'No such entity',
+    //   });
+    // }
+    profile.education.splice(removeIndex, 1);
+    await profile.save();
+    res.json(profile);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 //@route  DELETE api/profile/
 //@desc   Delete profile, user & post
 //@access Private
