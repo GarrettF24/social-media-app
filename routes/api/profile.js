@@ -185,11 +185,7 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
     const removeIndex = profile.education
       .map((item) => item.id)
       .indexOf(req.params.edu_id);
-    if (removeIndex === -1) {
-      return res.status(400).json({
-        msg: 'No such entity',
-      });
-    }
+    if (removeIndex === -1) return res.status(400).json({ msg: 'No such entity' });
     profile.education.splice(removeIndex, 1);
     await profile.save();
     res.json(profile);
