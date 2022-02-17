@@ -14,7 +14,6 @@ router.get('/me', auth, async (req, res) => {
       'name',
       'avatar',
     ]);
-
     if (!profile) res.status(400).json({ msg: 'There is no profile for this user' });
     res.json(profile);
   } catch (error) {
@@ -186,11 +185,11 @@ router.delete('/education/:edu_id', auth, async (req, res) => {
     const removeIndex = profile.education
       .map((item) => item.id)
       .indexOf(req.params.edu_id);
-    // if (removeIndex === -1) {
-    //   return res.status(400).json({
-    //     msg: 'No such entity',
-    //   });
-    // }
+    if (removeIndex === -1) {
+      return res.status(400).json({
+        msg: 'No such entity',
+      });
+    }
     profile.education.splice(removeIndex, 1);
     await profile.save();
     res.json(profile);
