@@ -95,14 +95,14 @@ router.post(
         return res.json(profile);
       }
       //Create
-      profile = new Profile(profileFields);
+      profile = new Profile(profFields);
       await profile.save();
       res.json(profile);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: error.message });
     }
-    console.log(profileFields);
+    console.log(profFields);
   }
 );
 
@@ -146,11 +146,11 @@ router.get('/user/:user_id', async (req, res) => {
   }
 });
 
-//@route  PUT apli/profile/education
+//@route  POST apli/profile/education
 //desc    Add profile education
 //@access Private
 
-router.put(
+router.post(
   '/education',
   auth,
   [
