@@ -55,7 +55,7 @@ router.get('/:id', auth, async (req, res) => {
     res.json(post);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Post not found.' });
   }
 });
 
