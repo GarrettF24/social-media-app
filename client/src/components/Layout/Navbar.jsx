@@ -1,29 +1,29 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
   return (
     <div className='navbar bg-dark'>
       <h2>
-        <a className='nav-anchors' href='dashboard.html'>
+        <Link className='nav-anchors' to='/'>
           <i className='fa-solid fa-users'></i>SocialMedia App
-        </a>
+        </Link>
       </h2>
       <ul className='nav-links'>
         <li>
-          {' '}
-          <a className='nav-anchors' href='profiles.html'>
+          <Link to='/' className='nav-anchors'>
             People
-          </a>
+          </Link>
         </li>
         <li>
-          <a className='nav-anchors' href='signup.html'>
+          <Link to='/signup' className='nav-anchors'>
             Sign Up
-          </a>
+          </Link>
         </li>
         <li>
-          <a className='nav-anchors' href='login.html'>
+          <Link to='/login' className='nav-anchors'>
             Login
-          </a>
+          </Link>
         </li>
       </ul>
     </div>
