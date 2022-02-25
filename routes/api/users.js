@@ -18,7 +18,6 @@ router.post(
     check('password', 'Please enter a password with 6 or more characters').isLength({
       min: 6,
     }),
-    check('avatar', 'Please provide a image url').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
