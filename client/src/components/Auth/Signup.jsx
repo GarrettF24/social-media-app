@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-// import axios from 'axios';
 
 export const Signup = () => {
   const [formData, setFormData] = useState({
@@ -17,22 +17,11 @@ export const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password !== passwordConfirm) console.log('Password do not match');
-    //   const newUser = { name, email, password };
-    //   try {
-    //     const config = {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     };
-    //     const body = JSON.stringify(newUser);
-    //     const res = await axios.post('/api/users', body, config);
-    //     console.log(res.data);
-    //   } catch (error) {
-    //     console.error(error.response.data);
-    //   }
-    // }
-    console.log('success');
+    if (password !== passwordConfirm) {
+      console.log('Password do not match');
+    } else {
+      console.log('success');
+    }
   };
 
   return (

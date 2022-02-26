@@ -18,8 +18,8 @@ const App = () => (
         <Navbar />
         <Routes>
           <Route exact path='/' element={<Landing />} />
-          <Route exact path='signup' element={<Signup />} />
-          <Route exact path='login' element={<Login />} />
+          <Route exact path='/signup' element={<Signup />} />
+          <Route exact path='/login' element={<Login />} />
         </Routes>
       </Fragment>
     </Router>
