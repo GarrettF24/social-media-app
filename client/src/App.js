@@ -7,7 +7,7 @@ import { Login } from './components/Auth/Login';
 import { Signup } from './components/Auth/Signup';
 
 import { Provider } from 'react-redux';
-import store from './store';
+import store from './redux/store';
 
 import './App.css';
 
