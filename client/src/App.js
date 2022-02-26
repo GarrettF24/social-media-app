@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navbar } from './components/Layout/Navbar';
 import { Landing } from './components/Layout/Landing';
 import { Login } from './components/Auth/Login';
-import { Signup } from './components/Auth/Signup';
+import Signup from './components/Auth/Signup';
+// import Alert from './components/Layout/Alert';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';
@@ -16,6 +17,7 @@ const App = () => (
     <Router>
       <Fragment>
         <Navbar />
+        {/* <Alert /> */}
         <Routes>
           <Route exact path='/' element={<Landing />} />
           <Route exact path='/signup' element={<Signup />} />
