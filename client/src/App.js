@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-import { Navbar } from './components/Layout/Navbar';
+import Navbar from './components/Layout/Navbar';
 import { Landing } from './components/Layout/Landing';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
