@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { login } from '../../redux/auth/auth.actions';
 
-export const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -14,9 +17,13 @@ export const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('success');
+    login(email, password);
   };
 
+  // redirect if logged in
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' />;
+  }
   return (
     <div className='container'>
       <h1 className='large text-primary'>Login</h1>
@@ -56,3 +63,13 @@ export const Login = () => {
     </div>
   );
 };
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.authReducer.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);
